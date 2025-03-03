@@ -1,6 +1,24 @@
 Website different provider: registry.terraform.io/browse/providers
 Ref for local provider: https://registry.terraform.io/providers/hashicorp/local/latest/docs
 
+Local
+
+https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file
+
+terraform {
+  required_providers {
+    local = {
+      source = "hashicorp/local"
+      version = "2.5.2"
+    }
+  }
+}
+
+
+
+
+
+
 Multi Region
 
 ```
