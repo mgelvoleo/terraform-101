@@ -1,0 +1,39 @@
+# Use the official Ubuntu image as the base image
+FROM ubuntu:22.04
+
+# Set environment variables to avoid interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update the package list and install necessary dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    curl \
+    wget \
+    unzip \
+    gnupg \
+    software-properties-common \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Azure CLI
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
+# Install Terraform
+RUN TERRAFORM_VERSION="1.5.7" && \
+    wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin && \
+    rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+
+
+ # Create a directory for Terraform configurations
+WORKDIR /workspace
+
+# Copy Terraform files (optional)
+COPY . /workspace   
+# Verify installations
+
+RUN az --version && \
+    terraform --version
+
+# Set the default command to run when the container starts
+CMD ["/bin/bash"]
