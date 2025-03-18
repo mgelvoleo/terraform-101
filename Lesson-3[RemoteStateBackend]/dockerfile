@@ -1,0 +1,20 @@
+# Install Terraform
+RUN TERRAFORM_VERSION="1.5.7" && \
+    wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin && \
+    rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+
+
+ # Create a directory for Terraform configurations
+WORKDIR /workspace
+
+# Copy Terraform files (optional)
+COPY . /workspace   
+# Verify installations
+
+RUN az --version && \
+    terraform --version
+
+# Set the default command to run when the container starts
+CMD ["/bin/bash"]
