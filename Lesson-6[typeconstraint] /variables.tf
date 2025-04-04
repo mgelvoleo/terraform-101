@@ -1,5 +1,17 @@
-variable "environment" {
-  type = string
-  description = "type of string"
-  default = "test"
+terraform {
+  required_providers {
+    azurerm = {
+        source = "hashicorp/azurerm"
+        version = "~> 4.8.0"
+    }
+  }
+
+  
+}
+
+provider "azurerm" {
+    features {
+      
+    }
+  
 }
